@@ -1,3 +1,7 @@
+Set-Alias ex 'exit'
+Set-Alias cl 'Clear-Host'
+Set-Alias b 'btm'
+
 function Update-AllModules {
     Get-Module -ListAvailable | ForEach-Object { Update-Module -Name $_.Name -Force }
 }
@@ -99,6 +103,7 @@ function ga {
 }
 function gaa {
 	git add --all $args
+    gs
 }
 function gst {
     git stage $args
@@ -145,7 +150,7 @@ function gfa {
 }
 
 function gs() {
-    git status -bs
+    bash "$PSMainPath/scripts/git-st.sh"
 }
 function gg() {
     git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
@@ -207,3 +212,35 @@ function Set-GitConfig([string] $name, [string] $email, [boolean] $isGlobal) {
 function Set-GitSubmodule {
     git submodule update --init --recursive $args
 }
+
+
+function Set-Infisical-Key([string] $key) {
+    infisical auth --api-key $key
+}
+<#
+    short functions
+#>
+# Set-Alias ex 'exit'
+# Set-Alias cl 'Clear-Host'
+# 
+# $Env:EXA_COLORS+="nb=38;5;239:ub=38;5;241:"    #  0  -> <1KB : grey
+# $Env:EXA_COLORS+="nk=38;5;29:uk=38;5;100:"     # 1KB -> <1MB : green
+# $Env:EXA_COLORS+="nm=38;5;26:um=38;5;32:"      # 1MB -> <1GB : blue
+# $Env:EXA_COLORS+="ng=38;5;130:ug=38;5;166;1:"  # 1GB -> <1TB : orange
+# $Env:EXA_COLORS+="nt=38;5;160:ut=38;5;197;1:"  # 1TB -> +++  : red
+# function d {
+#     $basedParams = '--icons --color=always --oneline --long --git -L=2 -b --changed -F'
+#     Invoke-Expression "eza $basedParams --no-permissions --no-user --no-time $args"
+# }
+# function re { . $profile }
+# function dd { d --time-style=relative -a }
+# function c($path) {
+#     Set-Location $path
+#     d
+# }
+# function cc() { Set-Location - }
+# function ..() { c .. }
+# function ...() { c ../../ }
+# function ....() { c ../../../ }
+# function .....() { c ../../../../ }
+# function /() { c / }

@@ -4,7 +4,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
-🕒(fg:#394260) $time\
+\ueb7c(fg:#394260) $time\
 \n$character"""
 right_format = """$time"""
 # Wait 10 milliseconds for starship to check files under the current directory.
@@ -27,4 +27,4 @@ time_format = "%R" # Hour:Minute Format
 format = '$time'
 
 [character] # The name of the module we are configuring is "character"
-success_symbol = "[🚀](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+success_symbol = "[\uf105](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
