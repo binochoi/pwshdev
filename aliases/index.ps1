@@ -130,6 +130,9 @@ function gbd() {
 function gc {
 	git commit -v $args
 }
+function gcp {
+    gc && git push
+}
 function gc! {
 	git commit -v --amend $args
 }
