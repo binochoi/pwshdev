@@ -70,7 +70,18 @@ function Remove-DockerContainersAll() {
 function Remove-DockerImagesAll() {
     docker rmi -f $(docker images -aq) $args
 }
-
+function Remove-DockerVolumesAll() {
+    docker volume rm $(docker volume ls -q) $args
+}
+function Remove-DockerNetworksAll() {
+    docker network rm $(docker network ls -q) $args
+}
+function Remove-DockerAll() {
+    Remove-DockerContainersAll
+    Remove-DockerImagesAll
+    Remove-DockerVolumesAll
+    Remove-DockerNetworksAll
+}
 <#
     GCP
 #>
