@@ -22,6 +22,7 @@ if($IsLinux) {
 . ($PSScriptRoot + '/aliases/index.ps1')
 . ($PSScriptRoot + '/aliases/hangeul.ps1')
 
+function j { just $args }
 function p { pnpm $args }
 function py { python3 $args }
 function m8s { microk8s $args }

@@ -76,11 +76,13 @@ function Remove-DockerVolumesAll() {
 function Remove-DockerNetworksAll() {
     docker network rm $(docker network ls -q) $args
 }
-function Remove-DockerAll() {
+function Remove-DockerProcessAll() {
     Remove-DockerContainersAll
     Remove-DockerImagesAll
     Remove-DockerVolumesAll
     Remove-DockerNetworksAll
+    # 한 번에 모든 미사용 Docker 객체 삭제
+    docker system prune -a --volumes
 }
 <#
     GCP
