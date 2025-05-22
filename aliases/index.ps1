@@ -260,3 +260,7 @@ function Set-Infisical-Key([string] $key) {
 # function ....() { c ../../../ }
 # function .....() { c ../../../../ }
 # function /() { c / }
+
+function alert() {
+    $null = afplay /System/Library/Sounds/Glass.aiff &
+}
