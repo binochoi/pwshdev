@@ -2,6 +2,13 @@ Set-Alias ex 'exit'
 Set-Alias cl 'Clear-Host'
 Set-Alias b 'btm'
 
+<#
+    replacements
+#>
+Set-Alias nano 'micro'
+Set-Alias vi 'micro'
+Set-Alias v 'micro'
+
 function Update-AllModules {
     Get-Module -ListAvailable | ForEach-Object { Update-Module -Name $_.Name -Force }
 }
