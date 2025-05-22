@@ -185,6 +185,7 @@ function gpush {
     }
     Invoke-Expression "git push origin $args"
 }
+Set-Alias gp 'gpush'
 function gpull([string] $branchName) {
     $args = $args[0..10]
     if($args.count -eq 0) {
@@ -192,6 +193,7 @@ function gpull([string] $branchName) {
     }
     Invoke-Expression "git pull origin --recurse-submodules $args"
 }
+Set-Alias gl 'gpull'
 function Get-GitRemotes() {
     git remote -v $args
 }
