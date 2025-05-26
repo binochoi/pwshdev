@@ -1,3 +1,5 @@
+
+Set-Alias ㅁ 'a'
 Set-Alias ㅊ 'c'
 Set-Alias ㅇ 'd'
 Set-Alias ㅇㅇ 'dd'

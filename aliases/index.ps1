@@ -1,6 +1,7 @@
 Set-Alias ex 'exit'
 Set-Alias cl 'Clear-Host'
 Set-Alias b 'btm'
+Set-Alias a 'pwd'
 
 <#
     replacements
