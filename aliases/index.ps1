@@ -157,7 +157,7 @@ function gc! {
 	git commit -v --amend $args
 }
 function gclone {
-	git clone --recursive $args
+	git clone --depth 1 --recursive $args
 }
 function gclean {
 	git clean -df $args
