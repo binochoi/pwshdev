@@ -180,11 +180,7 @@ function gg() {
     git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
 }
 function gpush {
-    $args = $args[0..10]
-    if($args.count -eq 0) {
-        $args = @('HEAD:main')
-    }
-    Invoke-Expression "git push origin $args"
+    Invoke-Expression "git push $args"
 }
 Set-Alias gp 'gpush'
 function gpull([string] $branchName) {
