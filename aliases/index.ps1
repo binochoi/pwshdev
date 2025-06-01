@@ -179,16 +179,18 @@ function gs() {
 function gg() {
     git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset) %C(bold green)(%ar)%C(reset)'
 }
-function gpush {
-    Invoke-Expression "git push $args"
+function gp {
+    Invoke-Expression "git push $args --tags"
 }
-Set-Alias gp 'gpush'
 function gpull([string] $branchName) {
     $args = $args[0..10]
     if($args.count -eq 0) {
         $args = @('main')
     }
     Invoke-Expression "git pull origin --recurse-submodules $args"
+}
+function gk {
+    git checkout $args
 }
 Set-Alias gl 'gpull'
 function Get-GitRemotes() {
