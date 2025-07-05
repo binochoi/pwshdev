@@ -202,7 +202,17 @@ function grrb([string] $pattern) {
     }
 
     # 원격 브랜치 목록 가져오기
-    $branches = git branch -r | Where-Object { $_ -match $pattern }
+    $branches = git branch -r
+    
+    # 패턴에 * 가 있는지 확인
+    if($pattern.Contains("*")) {
+        # * 가 있으면 패턴 매칭
+        $branches = $branches | Where-Object { $_ -match [regex]::Escape($pattern).Replace("\*", ".*") }
+    } else {
+        # * 가 없으면 정확한 이름 매칭
+        $exactBranchName = "origin/$pattern"
+        $branches = $branches | Where-Object { $_.Trim() -eq $exactBranchName }
+    }
     
     if($branches.Count -eq 0) {
         Write-Host "삭제할 브랜치가 없습니다: $pattern"
@@ -210,7 +220,7 @@ function grrb([string] $pattern) {
     }
 
     $totalCount = $branches.Count
-    Write-Host "`n다음 브랜치들이 삭제됩니다: (총 $totalCount개)" -ForegroundColor Yellow
+    Write-Host "`n다음 브랜치들이 삭제됩니다: (총 ${totalCount}개)" -ForegroundColor Yellow
     foreach($branch in $branches) {
         Write-Host $branch -ForegroundColor Red
     }
@@ -229,11 +239,11 @@ function grrb([string] $pattern) {
         if($?) {
             $deletedCount++
             $remainingCount = $totalCount - $deletedCount
-            Write-Host "브랜치가 삭제되었습니다: $branchName (삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
+            Write-Host "브랜치가 삭제되었습니다: $branchName\n(삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
         }
     }
     
-    Write-Host "`n작업이 완료되었습니다. 총 $deletedCount개의 브랜치가 삭제되었습니다." -ForegroundColor Cyan
+    Write-Host "`n작업이 완료되었습니다. 총 ${deletedCount}개의 브랜치가 삭제되었습니다." -ForegroundColor Cyan
 }
 Set-Alias gl 'gpull'
 function Get-GitRemotes() {
