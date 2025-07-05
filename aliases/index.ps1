@@ -192,6 +192,49 @@ function gpull([string] $branchName) {
 function gk {
     git checkout $args
 }
+<#
+    git remove remote branch filter
+#>
+function grrb([string] $pattern) {
+    if([string]::IsNullOrEmpty($pattern)) {
+        Write-Error "패턴을 입력해주세요. 예: grrb cursor/*"
+        return
+    }
+
+    # 원격 브랜치 목록 가져오기
+    $branches = git branch -r | Where-Object { $_ -match $pattern }
+    
+    if($branches.Count -eq 0) {
+        Write-Host "삭제할 브랜치가 없습니다: $pattern"
+        return
+    }
+
+    $totalCount = $branches.Count
+    Write-Host "`n다음 브랜치들이 삭제됩니다: (총 $totalCount개)" -ForegroundColor Yellow
+    foreach($branch in $branches) {
+        Write-Host $branch -ForegroundColor Red
+    }
+
+    $confirmation = Read-Host "`n정말로 이 브랜치들을 삭제하시겠습니까? (y/N)"
+    if($confirmation -ne "y") {
+        Write-Host "작업이 취소되었습니다." -ForegroundColor Green
+        return
+    }
+
+    $deletedCount = 0
+    foreach($branch in $branches) {
+        # origin/ 제거하고 실제 브랜치 이름만 추출
+        $branchName = $branch.Trim() -replace "origin/", ""
+        git push origin --delete $branchName
+        if($?) {
+            $deletedCount++
+            $remainingCount = $totalCount - $deletedCount
+            Write-Host "브랜치가 삭제되었습니다: $branchName (삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
+        }
+    }
+    
+    Write-Host "`n작업이 완료되었습니다. 총 $deletedCount개의 브랜치가 삭제되었습니다." -ForegroundColor Cyan
+}
 Set-Alias gl 'gpull'
 function Get-GitRemotes() {
     git remote -v $args
