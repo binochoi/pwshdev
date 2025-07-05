@@ -141,7 +141,7 @@ function gb {
 function gba {
 	git branch -a $args
 }
-function gbr {
+function grb {
 	git branch --remote $args
 }
 function gbd() {
