@@ -239,7 +239,8 @@ function grrb([string] $pattern) {
         if($?) {
             $deletedCount++
             $remainingCount = $totalCount - $deletedCount
-            Write-Host "브랜치가 삭제되었습니다: $branchName\n(삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
+            Write-Host "브랜치가 삭제되었습니다: $branchName" -ForegroundColor Green
+            Write-Host "(삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
         }
     }
     
