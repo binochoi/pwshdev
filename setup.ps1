@@ -1,8 +1,9 @@
 brew install starship
+brew install eza
 
-Install-Module -Scope AllUsers QuiteShortAliases
-Install-Module -Scope AllUsers Terminal-Icons
-Install-Module -Scope AllUsers PSReadline
+# Install-Module -Scope AllUsers QuiteShortAliases
+# Install-Module -Scope AllUsers Terminal-Icons
+Install-Module -Scope CurrentUser PSReadline
 
 git config --global safe.directory '*'
 # 명령어 실행 결과 화면에서 유지

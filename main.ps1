@@ -26,7 +26,7 @@ function m8s { microk8s $args }
 function kb { kubectl $args }
 function kbc { kubectx $args }
 
-kubectl completion powershell | Out-String | Invoke-Expression
+# kubectl completion powershell | Out-String | Invoke-Expression
 
 $ENV:STARSHIP_CONFIG = $PSScriptRoot + '/assets/starship.config.toml'
 Invoke-Expression (&starship init powershell)
