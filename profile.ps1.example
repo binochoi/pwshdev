@@ -2,6 +2,6 @@ $Env:PATH += ':/opt/homebrew/opt/node@20/bin'
 $Env:PATH += ':/opt/homebrew/bin'
 $Env:PATH += ':/opt/homebrew/opt/openjdk@11/bin'
 $Env:ANDROID_HOME = '/Users/bino/Library/Android/sdk'
-$ENv:SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+$ENv:SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
 
 . /Users/bino/Documents/pwshdev/main.ps1
