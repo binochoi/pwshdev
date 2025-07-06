@@ -1,11 +1,5 @@
-# Import-Module QuiteShortAliases
-# Import-Module Terminal-Icons
 Import-Module PSReadline
-Import-Module "$PSScriptRoot/modules/short-aliases"
-
 $PSMainPath = $PSScriptRoot;
-
-# Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 # Set Intellisense grid selection
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 # Set Intellisense predictions
