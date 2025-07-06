@@ -180,7 +180,18 @@ function gg() {
     git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset) %C(bold green)(%ar)%C(reset)'
 }
 function gp {
-    git push origin $args
+    param(
+        [Parameter(Position = 0)]
+        [string] $branchName,
+        [Parameter()]
+        [string] $remoteName = 'origin'
+    )
+
+    if ([string]::IsNullOrEmpty($branchName)) {
+        git push $remoteName
+    } else {
+        git push $remoteName $branchName
+    }
 }
 <# git pull #>
 function gpl([string] $branchName) {
