@@ -182,7 +182,8 @@ function gg() {
 function gp {
     git push $args
 }
-function gpull([string] $branchName) {
+<# git pull #>
+function gpl([string] $branchName) {
     $args = $args[0..10]
     if($args.count -eq 0) {
         $args = @('main')
