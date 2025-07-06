@@ -132,9 +132,6 @@ function gst {
 function gre($fullPath) {
     git restore --staged $($fullPath ? $fullPath : '.')
 }
-function gdiscard {
-    git restore .
-}
 function gb {
 	git branch $args
 }
@@ -161,6 +158,9 @@ function gclone {
 	git clone --recursive $args
 }
 function gclean {
+    git restore .
+}
+function gclean! {
 	git clean -df $args
 }
 function gw {
