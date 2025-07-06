@@ -13,15 +13,16 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
 
+# 모든 로컬 모듈 자동 import
+Get-ChildItem -Path "$PSScriptRoot/modules" -Recurse -Filter "*.psm1" | ForEach-Object {
+    Import-Module $_.FullName -DisableNameChecking
+}
+
 
 if($IsLinux) {
     # WSL에서 시간 동기화 문제 해결
     hwclock -s
 }
-
-Import-Module "$PSScriptRoot/modules/aliases/Common" -DisableNameChecking
-Import-Module "$PSScriptRoot/modules/aliases/Hangeul" -DisableNameChecking
-Import-Module "$PSScriptRoot/modules/aliases/Git" -DisableNameChecking
 
 function j { just $args }
 function p { pnpm $args }
