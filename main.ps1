@@ -19,8 +19,9 @@ if($IsLinux) {
     hwclock -s
 }
 
-. ($PSScriptRoot + '/aliases/index.ps1')
+. ($PSScriptRoot + '/aliases/rest.ps1')
 . ($PSScriptRoot + '/aliases/hangeul.ps1')
+. ($PSScriptRoot + '/aliases/git.ps1')
 
 function j { just $args }
 function p { pnpm $args }
