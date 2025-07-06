@@ -194,8 +194,8 @@ function gk {
     git checkout $args
 }
 
-# gk 명령어의 탭 완성 기능 추가
-Register-ArgumentCompleter -CommandName gk -ScriptBlock {
+# git 관련 명령어들의 탭 완성 기능
+$gitBranchCompleter = {
     param($wordToComplete, $commandAst, $cursorPosition)
     
     # 모든 브랜치 목록 가져오기 (로컬 + 리모트)
@@ -207,6 +207,11 @@ Register-ArgumentCompleter -CommandName gk -ScriptBlock {
     $branches | Where-Object { $_ -like "$wordToComplete*" } | ForEach-Object {
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
+}
+
+# 각 git 관련 명령어에 탭 완성 기능 등록
+@('gk', 'gb', 'gp', 'gpl', 'gw') | ForEach-Object {
+    Register-ArgumentCompleter -CommandName $_ -ScriptBlock $gitBranchCompleter
 }
 
 <#
