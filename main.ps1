@@ -35,3 +35,8 @@ Invoke-Expression (&starship init powershell)
 if (Test-Path ~/.pwshrc.ps1) {
     . ~/.pwshrc.ps1
 }
+
+# odd.ps1 백그라운드 실행
+Start-Job -ScriptBlock {
+    & "$using:PSMainPath/systems/odd.ps1"
+} | Out-Null
