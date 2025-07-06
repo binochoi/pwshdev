@@ -19,9 +19,9 @@ if($IsLinux) {
     hwclock -s
 }
 
-. ($PSScriptRoot + '/aliases/rest.ps1')
-. ($PSScriptRoot + '/aliases/hangeul.ps1')
-. ($PSScriptRoot + '/aliases/git.ps1')
+Import-Module "$PSScriptRoot/modules/aliases/Common" -DisableNameChecking
+Import-Module "$PSScriptRoot/modules/aliases/Hangeul" -DisableNameChecking
+Import-Module "$PSScriptRoot/modules/aliases/Git" -DisableNameChecking
 
 function j { just $args }
 function p { pnpm $args }
