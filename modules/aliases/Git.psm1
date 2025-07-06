@@ -95,6 +95,10 @@ function gk {
     git checkout $args
 }
 
+function gm {
+    git merge $args
+}
+
 $gitBranchCompleter = {
     param($wordToComplete, $commandAst, $cursorPosition)
     
@@ -107,7 +111,7 @@ $gitBranchCompleter = {
     }
 }
 
-@('gk', 'gb', 'gp', 'gpl', 'gw') | ForEach-Object {
+@('gk', 'gb', 'gp', 'gpl', 'gw', 'gm') | ForEach-Object {
     Register-ArgumentCompleter -CommandName $_ -ScriptBlock $gitBranchCompleter
 }
 
