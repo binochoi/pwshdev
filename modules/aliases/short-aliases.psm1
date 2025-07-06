@@ -25,6 +25,10 @@ function ....() { c ../../../ }
 function .....() { c ../../../../ }
 function /() { c / }
 
+function rm {
+    trash $args
+}
+
 $profilePath = Split-Path -Path $profile -Parent
 
 Export-ModuleMember -Function *
