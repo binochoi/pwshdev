@@ -192,6 +192,22 @@ function gpull([string] $branchName) {
 function gk {
     git checkout $args
 }
+
+# gk 명령어의 탭 완성 기능 추가
+Register-ArgumentCompleter -CommandName gk -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+    
+    # 모든 브랜치 목록 가져오기 (로컬 + 리모트)
+    $branches = @()
+    $branches += git branch --format "%(refname:short)" 2>$null
+    $branches += git branch -r --format "%(refname:short)" 2>$null | ForEach-Object { $_ -replace '^origin/', '' } | Sort-Object -Unique
+    
+    # 입력된 단어로 시작하는 브랜치 필터링
+    $branches | Where-Object { $_ -like "$wordToComplete*" } | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+    }
+}
+
 <#
     git remove remote branch filter
 #>
