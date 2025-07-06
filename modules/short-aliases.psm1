@@ -27,5 +27,5 @@ function /() { c / }
 
 $profilePath = Split-Path -Path $profile -Parent
 
-Export-ModuleMember -Function 'ex', 're', 'd', 'dd', 'c', 'cc', '..', '...', '....', '.....', '/'
-Export-ModuleMember -Variable 'profilePath'
+Export-ModuleMember -Function *
+Export-ModuleMember -Variable *
