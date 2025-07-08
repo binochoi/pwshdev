@@ -3,6 +3,7 @@
 #>
 git config --global user.name "bino"
 git config --global user.email "bonoself@gmail.com"
+git config --global core.ignorecase false
 
 # 휴지통 자동 비우기 체크
 $pwshdevPath = "~/.pwshdev"
