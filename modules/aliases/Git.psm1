@@ -51,8 +51,8 @@ function gclone {
 function gclean {
     git restore .
 }
-function gclean! {
-	git clean -df $args
+function !gclean {
+    git reset --hard && git clean -fd
 }
 function gw {
     git switch $args
