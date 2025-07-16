@@ -31,6 +31,7 @@ $ENV:STARSHIP_CONFIG = $PSScriptRoot + '/assets/starship.config.toml'
 Invoke-Expression (&starship init powershell)
 
 $ENV:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+$ENV:DOCKER_BUILDKIT = "1"
 
 # ~/.pwshrc.ps1 파일이 있는지 체크하고 있다면 실행
 if (Test-Path ~/.pwshrc.ps1) {
