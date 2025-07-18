@@ -1,0 +1,19 @@
+
+[ui.list]
+# The minimum width of a subject in the commit list.
+# type: u16
+subject_min_width = 20
+# The date format of a author date in the commit list.
+# The format must be specified in strftime format.
+# https://docs.rs/chrono/latest/chrono/format/strftime/index.html
+# type: string
+date_format = "%Y-%m-%d %H:%M:%S"
+# The width of a author date in the commit list.
+# type: u16
+date_width = 15
+# Whether to show a author date in the commit list in local timezone.
+# type: boolean
+date_local = true
+# The width of a author name in the commit list.
+# type: u16
+name_width = 7
