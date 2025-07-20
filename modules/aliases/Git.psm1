@@ -81,7 +81,7 @@ function gg() {
 function gp {
     param(
         [Parameter(Position = 0)]
-        [string] $branchName,
+        [string] $branchName = 'main',
         [Parameter()]
         [string] $remoteName = 'origin'
     )
@@ -91,6 +91,15 @@ function gp {
     } else {
         git push $remoteName $branchName
     }
+}
+<# git push from HEAD #>
+function gph {
+    param(
+        [Parameter(Position = 0)]
+        [string] $branchName = 'main',
+        [string] $remoteName = 'origin'
+    )
+    git push $remoteName HEAD:$branchName
 }
 function gpl([string] $branchName) {
     $args = $args[0..10]
@@ -137,7 +146,7 @@ $gitBranchCompleter = {
     }
 }
 
-@('gk', 'gb', 'gp', 'gpl', 'gw', 'gm', 'gbd', 'gbdr', 'grbd') | ForEach-Object {
+@('gk', 'gb', 'gp', 'gph', 'gpl', 'gw', 'gm', 'gbd', 'gbdr', 'grbd') | ForEach-Object {
     Register-ArgumentCompleter -CommandName $_ -ScriptBlock $gitBranchCompleter
 }
 
