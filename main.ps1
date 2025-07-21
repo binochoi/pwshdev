@@ -26,8 +26,10 @@ function m8s { microk8s $args }
 function kb { kubectl $args }
 function kbc { kubectx $args }
 
-
-$ENV:DOCKER_BUILDKIT = "1"
+<#
+  buildkit은 빌드 자체 성능을 높일 수 있지만, mac의 colima 체제 하에서는 error prone이므로 비활성화
+#>
+$ENV:DOCKER_BUILDKIT = 0
 $SERIE_CONFIG_FILE = $ENV:SERIE_CONFIG_FILE = $PSScriptRoot + '/configs/serie.toml'
 $ENV:STARSHIP_CONFIG = $PSScriptRoot + '/configs/starship.toml'
 
