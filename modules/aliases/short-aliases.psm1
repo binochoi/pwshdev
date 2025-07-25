@@ -14,7 +14,18 @@ function dd {
     Invoke-Expression "eza $basedParams --time-style=relative -a $args"
 }
 function re { . $profile }
-function c($path) {
+function c {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+            Get-ChildItem -Path "$wordToComplete*" -Directory | ForEach-Object {
+                [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Name)
+            }
+        })]
+        [string]$path
+    )
     Set-Location $path
     d
 }
