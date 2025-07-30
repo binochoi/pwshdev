@@ -7,6 +7,19 @@ Set-Alias nano 'micro'
 Set-Alias vi 'micro'
 Set-Alias v 'micro'
 
+function !down {
+    sudo shutdown -h now
+}
+
+function !reboot {
+    # Disable reopen windows when logging back in
+    defaults write com.apple.loginwindow TALLogoutSavesState -bool false
+    defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
+    
+    # Reboot
+    sudo shutdown -r now
+}
+
 function Update-AllModules {
     Get-Module -ListAvailable | ForEach-Object { Update-Module -Name $_.Name -Force }
 }
