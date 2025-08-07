@@ -37,6 +37,14 @@ $ENV:STARSHIP_CONFIG = $PSScriptRoot + '/configs/starship.toml'
 Invoke-Expression (&starship init powershell)
 
 
+if($IsMacOs) {
+    <#
+      watcher 제한을 늘려서 동시에 여러 개 프로젝트를 진행할 수 있게 함
+    #>
+    Start-Job -ScriptBlock {
+        & ulimit -n 65536
+    } | Out-Null
+}
 
 # ~/.pwshrc.ps1 파일이 있는지 체크하고 있다면 실행
 if (Test-Path ~/.pwshrc.ps1) {
