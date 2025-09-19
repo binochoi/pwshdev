@@ -3,8 +3,8 @@ Set-Alias cl 'Clear-Host'
 Set-Alias b 'btm'
 Set-Alias a 'pwd'
 
-Set-Alias nano 'micro'
-Set-Alias vi 'micro'
+Set-Alias nano 'nvim'
+Set-Alias vi 'nvim'
 Set-Alias v 'nvim'
 
 function !down {
