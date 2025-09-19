@@ -5,7 +5,7 @@ Set-Alias a 'pwd'
 
 Set-Alias nano 'micro'
 Set-Alias vi 'micro'
-Set-Alias v 'micro'
+Set-Alias v 'nvim'
 
 function !down {
     sudo shutdown -h now

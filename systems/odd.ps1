@@ -5,6 +5,12 @@ git config --global user.name "bino"
 git config --global user.email "bonoself@gmail.com"
 git config --global core.ignorecase false
 
+git config --global core.pager delta
+git config --global interactive.diffFilter 'delta --color-only'
+git config --global delta.navigate true
+git config --global delta.side-by-side true
+git config --global merge.conflictStyle zdiff3
+
 # 휴지통 자동 비우기 체크
 $pwshdevPath = "~/.pwshdev"
 $lastEmptyTrashAtPath = "$pwshdevPath/last-empty-trash-at"
