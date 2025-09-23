@@ -13,7 +13,6 @@ function d {
 function dd {
     Invoke-Expression "eza $basedParams --time-style=relative -a $args"
 }
-function ex { exit }
 function re { . $profile }
 function c {
     [CmdletBinding()]
