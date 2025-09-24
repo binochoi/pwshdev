@@ -1,4 +1,3 @@
-Set-Alias ex 'exit'
 Set-Alias cl 'Clear-Host'
 Set-Alias b 'btm'
 Set-Alias a 'pwd'
@@ -7,6 +6,9 @@ Set-Alias nano 'nvim'
 Set-Alias vi 'nvim'
 Set-Alias v 'nvim'
 
+function ex {
+    exit
+}
 function !down {
     sudo shutdown -h now
 }
