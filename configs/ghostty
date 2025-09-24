@@ -1,25 +1,62 @@
 
 font-size = 18
 
+# keybind = cmd+shift+right=new_split:right
+# keybind = cmd+shift+down=new_split:down
+
 # 터미널 닫을 때 프로세스 실행 중 확인 메시지 비활성화
-confirm-close-surface = false
+confirm-close-surface = true
 
 
 # 패널 간 이동 (alt (option) + 방향키)
-keybind = cmd+left=goto_split:left
-keybind = cmd+right=goto_split:right
-keybind = cmd+up=goto_split:top
-keybind = cmd+down=goto_split:bottom
+#keybind = cmd+left=goto_split:left
+#keybind = cmd+right=goto_split:right
+#keybind = cmd+up=goto_split:top
+#keybind = cmd+down=goto_split:bottom
+
+# 추가 분할 창 관련 단축키 (선택사항)
+# keybind = ctrl+cmd+left=goto_split:left     # 왼쪽 분할로 이동
+# keybind = ctrl+cmd+up=goto_split:top        # 위쪽 분할로 이동
+# keybind = ctrl+cmd+h=goto_split:left        # vim 스타일 이동
+# keybind = ctrl+cmd+j=goto_split:bottom      # vim 스타일 이동
+# keybind = ctrl+cmd+k=goto_split:top         # vim 스타일 이동
+# keybind = ctrl+cmd+l=goto_split:right       # vim 스타일 이동
+
 
 # 위쪽으로 패널 분할 (Shift + Alt + Up)
-keybind = shift+cmd+up=new_split:up
+#keybind = shift+cmd+up=new_split:up
 
 # 아래쪽으로 패널 분할 (Shift + Alt + Down)
-keybind = shift+cmd+down=new_split:down
+#keybind = shift+cmd+down=new_split:down
 
 # 왼쪽으로 패널 분할 (Shift + Alt + Left)
-keybind = shift+cmd+left=new_split:left
+#keybind = shift+cmd+left=new_split:left
 
 # 오른쪽으로 패널 분할 (Shift + Alt + Right)
-keybind = shift+cmd+right=new_split:right
+#keybind = shift+cmd+right=new_split:right
 
+macos-option-as-alt = true
+
+keybind=clear
+
+# keybind = alt+left=unbind
+# keybind = alt+right=unbind
+# keybind = alt+up=unbind
+# keybind = alt+down=unbind
+# keybind = cmd+t=unbind
+# keybind = cmd+w=unbind
+# 
+# keybind = cmd+left=unbind
+# keybind = cmd+right=unbind
+# keybind = cmd+up=unbind
+# keybind = cmd+down=unbind
+# 
+# keybind = shift+cmd+left=unbind
+# keybind = shift+cmd+right=unbind
+# keybind = shift+cmd+up=unbind
+# keybind = shift+cmd+down=unbind
+# 
+# keybind=control+tab=unbind
+# keybind=control+shift+tab=unbind
+# keybind=ctrl+tab=unbind
+# keybind=ctrl+shift+tab=unbind
