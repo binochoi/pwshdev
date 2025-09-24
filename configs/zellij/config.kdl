@@ -4,6 +4,9 @@
 
 theme "nord"
 
+// singleton default name (원하면 세션 이름 적용 가능)
+session_name "default"
+session_serialization true
 // UI
 rounded_corners true
 hide_session_name true
@@ -21,9 +24,9 @@ keybinds {
         bind "Super t" { NewTab; }
         
         // 패널 추가 (Shift + Super + 화살표)
-        bind "Shift Super Left" { NewPane "Left"; }
+        bind "Shift Super Left" { NewPane; }
         bind "Shift Super Right" { NewPane "Right"; }
-        bind "Shift Super Up" { NewPane "Up"; }
+        bind "Shift Super Up" { ToggleFloatingPanes; }
         bind "Shift Super Down" { NewPane "Down"; }
         
         // 패널 포커스 이동 (Super + 화살표)

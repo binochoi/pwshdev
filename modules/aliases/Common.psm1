@@ -131,4 +131,11 @@ function alert() {
     $null = afplay /System/Library/Sounds/Glass.aiff &
 }
 
+function zea() {
+    ze attach $args
+}
+function zel() {
+    ze list-sessions
+}
+
 Export-ModuleMember -Function * -Alias *

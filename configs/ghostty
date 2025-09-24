@@ -37,26 +37,26 @@ confirm-close-surface = true
 
 macos-option-as-alt = true
 
-keybind=clear
+# keybind=clear
 
-# keybind = alt+left=unbind
-# keybind = alt+right=unbind
-# keybind = alt+up=unbind
-# keybind = alt+down=unbind
-# keybind = cmd+t=unbind
-# keybind = cmd+w=unbind
-# 
-# keybind = cmd+left=unbind
-# keybind = cmd+right=unbind
-# keybind = cmd+up=unbind
-# keybind = cmd+down=unbind
-# 
-# keybind = shift+cmd+left=unbind
-# keybind = shift+cmd+right=unbind
-# keybind = shift+cmd+up=unbind
-# keybind = shift+cmd+down=unbind
-# 
-# keybind=control+tab=unbind
-# keybind=control+shift+tab=unbind
-# keybind=ctrl+tab=unbind
-# keybind=ctrl+shift+tab=unbind
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+keybind = alt+up=unbind
+keybind = alt+down=unbind
+keybind = cmd+t=unbind
+keybind = cmd+w=unbind
+
+keybind = cmd+left=unbind
+keybind = cmd+right=unbind
+keybind = cmd+up=unbind
+keybind = cmd+down=unbind
+
+keybind = shift+cmd+left=unbind
+keybind = shift+cmd+right=unbind
+keybind = shift+cmd+up=unbind
+keybind = shift+cmd+down=unbind
+
+keybind=control+tab=unbind
+keybind=control+shift+tab=unbind
+keybind=ctrl+tab=unbind
+keybind=ctrl+shift+tab=unbind
