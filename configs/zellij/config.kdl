@@ -17,6 +17,8 @@ display_paneframes false
 
 
 keybinds {
+    // 종료를 허용하지 않음
+    unbind "Ctrl q"
     normal {
         // 기존 키 바인딩들...
         
