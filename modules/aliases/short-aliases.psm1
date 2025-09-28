@@ -17,14 +17,14 @@ function re { . $profile }
 function c {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true, Position=0)]
+        [Parameter(Position=0)]
         [ArgumentCompleter({
             param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
             Get-ChildItem -Path "$wordToComplete*" -Directory | ForEach-Object {
                 [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Name)
             }
         })]
-        [string]$path
+        [string]$path = "~"
     )
     Set-Location $path
     d
