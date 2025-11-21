@@ -359,8 +359,16 @@ Set-Alias gl 'gpull'
 function Get-GitRemotes() {
     git remote -v $args
 }
+function Add-GitRemoteURL([string] $url, [string] $remoteName = 'origin') {
+    git remote add $remoteName $url
+}
 function Set-GitRemoteURL([string] $url, [string] $remoteName = 'origin') {
-    git remote set-url $remoteName $url;
+    $remotes = git remote
+    if ($remotes -contains $remoteName) {
+        git remote set-url $remoteName $url
+    } else {
+        Add-GitRemoteURL $url $remoteName
+    }
     gfa
 }
 
