@@ -37,30 +37,51 @@ function k([number] $uid) {
 }
 
 function trash([string] $fileNameWithPath) {
-    if($fileNameWithPath -eq $null) {
+    if ([string]::IsNullOrEmpty($fileNameWithPath)) {
         Write-Error 'unexpected syntax'
         return
     }
-    $isNotExistTrashBin = !(Test-Path -Path '~/.Trash')
-    if($isNotExistTrashBin) {
-        mkdir ~/.trash
+
+    # Check if source file exists
+    if (-not (Test-Path $fileNameWithPath)) {
+        Write-Host 'not exist'
+        return
     }
-    
-    $nameIndex = 1
-    $modifiedNameWithPath = $fileNameWithPath;
-    while(Test-Path ('~/.trash/' + $modifiedNameWithPath)) {
-        $modifiedNameWithPath = $fileNameWithPath + $nameIndex
-        ++$nameIndex
+
+    # Create trash folder if it doesn't exist
+    $trashPath = "$HOME/.Trash"
+    if (-not (Test-Path $trashPath)) {
+        New-Item -ItemType Directory -Path $trashPath | Out-Null
     }
+
+    # Get the original filename
+    $fileName = Split-Path $fileNameWithPath -Leaf
+    $targetPath = Join-Path $trashPath $fileName
+
+    # If file/folder with same name exists, add -1, -2, -3...
+    if (Test-Path $targetPath) {
+        $extension = [System.IO.Path]::GetExtension($fileName)
+        $nameWithoutExt = [System.IO.Path]::GetFileNameWithoutExtension($fileName)
+
+        $counter = 1
+        do {
+            if ($extension) {
+                $newFileName = "${nameWithoutExt}-${counter}${extension}"
+            } else {
+                $newFileName = "${nameWithoutExt}-${counter}"
+            }
+            $targetPath = Join-Path $trashPath $newFileName
+            $counter++
+        } while (Test-Path $targetPath)
+    }
+
+    # Move to trash
     try {
-        if(-not(Test-Path $fileNameWithPath)) {
-            Write-Host 'not exist'
-            return
-        }
-        $modifiedFileName = $modifiedNameWithPath.split('/')[-1];
-        Move-Item -Force $fileNameWithPath ('~/.trash/' + $modifiedFileName)
-        Write-Output '+ add to ~/.Trash bin'
-    } catch{}
+        Move-Item -Path $fileNameWithPath -Destination $targetPath -Force
+        Write-Output "+ add to $trashPath"
+    } catch {
+        Write-Error "Failed to move to trash: $_"
+    }
 }
 
 function Get-Ports() {
