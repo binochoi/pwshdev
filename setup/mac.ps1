@@ -13,4 +13,4 @@ git config --global core.ignorecase false
 git config --global help.autocorrect 1
 
 git config --global pull.rebase false
-git config --global core.editor "micro"
+git config --global core.editor "nvim"
