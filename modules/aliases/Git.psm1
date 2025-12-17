@@ -46,6 +46,9 @@ function gbd() {
 function gc {
 	git commit -v $args
 }
+function gc. {
+    git commit -m "."
+}
 function gcp {
     gc && git push
 }

@@ -1,0 +1,23 @@
+git commit editor from micro -> nvim
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#	modified:   setup/mac.ps1
+#
+# ------------------------ >8 ------------------------
+# Do not modify or remove the line above.
+# Everything below it will be ignored.
+diff --git a/setup/mac.ps1 b/setup/mac.ps1
+index c98c105..fd995de 100644
+--- a/setup/mac.ps1
++++ b/setup/mac.ps1
+@@ -13,4 +13,4 @@ git config --global core.ignorecase false
+ git config --global help.autocorrect 1
+ 
+ git config --global pull.rebase false
+-git config --global core.editor "micro"
+\ No newline at end of file
++git config --global core.editor "nvim"
+\ No newline at end of file
