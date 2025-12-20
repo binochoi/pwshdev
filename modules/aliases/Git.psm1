@@ -61,9 +61,6 @@ function gclone {
 function gclean {
     git restore .
 }
-function !gclean {
-    git reset --hard && git clean -fd
-}
 function gw {
     git switch $args
 }
@@ -409,6 +406,14 @@ function Set-GitConfig([string] $name, [string] $email, [boolean] $isGlobal) {
 }
 function Set-GitSubmodule {
     git submodule update --init --recursive $args
+}
+
+function gss([string] $message) {
+    if([string]::IsNullOrEmpty($message)) {
+        git stash push
+    } else {
+        git stash push -m $message
+    }
 }
 
 Export-ModuleMember -Function * -Alias *
