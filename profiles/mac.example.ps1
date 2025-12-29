@@ -25,9 +25,9 @@ function claudia {
 function clauded {
     claude --dangerously-skip-permissions $args
 }
-function ze {
-  ~/Applications/zellij $args
-}
+# function zellij {
+#   ~/Applications/zellij $args
+# }
 
 function pip {
   pip3 $args

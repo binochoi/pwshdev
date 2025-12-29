@@ -152,6 +152,17 @@ function alert() {
     $null = afplay /System/Library/Sounds/Glass.aiff &
 }
 
+function ze([string] $name = "default") {
+    $sessions = zellij list-sessions 2>$null
+    # ANSI escape codes 제거 후 세션 이름 파싱
+    $sessions = $sessions -replace '\e\[[0-9;]*m', ''
+    $sessionNames = $sessions -split "`n" | ForEach-Object { ($_ -split '\s+')[0].Trim() } | Where-Object { $_ }
+    if ($sessionNames -contains $name) {
+        zellij attach $name
+    } else {
+        zellij -s $name
+    }
+}
 function zea() {
     ze attach $args
 }
