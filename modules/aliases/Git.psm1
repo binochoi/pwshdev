@@ -416,4 +416,15 @@ function gss([string] $message) {
     }
 }
 
+function Invoke-Git-New-Worktree ([string]$Branch) {
+    $repoName = (git rev-parse --show-toplevel | Split-Path -Leaf)
+    $random = -join ((48..57) + (97..122) | Get-Random -Count 6 | ForEach-Object { [char]$_ })
+    $worktreePath = "$HOME/.worktrees/$repoName-$random"
+
+    git worktree add -b $Branch $worktreePath
+    Set-Location $worktreePath
+}
+function gnw { Invoke-Git-New-Worktree $args }
+
+
 Export-ModuleMember -Function * -Alias *
