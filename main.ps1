@@ -7,6 +7,13 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
 
+<#
+    tmux나 zellij같은 멀티플렉서를 같이 쓸 경우 paste할때마다
+    200~${copied}201~ 이딴 게 같이 붙음.
+    Bracketed Paste Mode 문제로, 이걸 해결하기 위한 설정.
+#>
+$PSStyle.OutputRendering = 'PlainText'
+
 # 모든 로컬 모듈 자동 import
 Get-ChildItem -Path "$PSScriptRoot/modules" -Recurse -Filter "*.psm1" | ForEach-Object {
     Import-Module $_.FullName -DisableNameChecking
