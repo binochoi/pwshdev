@@ -169,5 +169,8 @@ function zea() {
 function zel() {
     ze list-sessions
 }
-
+<# down port #>
+function dport([int] $port) {
+    lsof -ti :$port | xargs kill -9
+}
 Export-ModuleMember -Function * -Alias *
