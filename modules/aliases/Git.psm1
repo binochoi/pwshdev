@@ -407,7 +407,9 @@ function Set-GitConfig([string] $name, [string] $email, [boolean] $isGlobal) {
 function Set-GitSubmodule {
     git submodule update --init --recursive $args
 }
-
+function !gclean {
+    git reset --hard && git clean -fd
+}
 function gss([string] $message) {
     if([string]::IsNullOrEmpty($message)) {
         git stash push
