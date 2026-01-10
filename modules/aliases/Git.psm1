@@ -410,7 +410,7 @@ function Set-GitSubmodule {
 function !gclean {
     git reset --hard && git clean -fd
 }
-function gss([string] $message) {
+function !gstash([string] $message) {
     if([string]::IsNullOrEmpty($message)) {
         git stash push
     } else {
@@ -420,7 +420,7 @@ function gss([string] $message) {
 
 function Invoke-Git-New-Worktree ([string]$Branch) {
     $repoName = (git rev-parse --show-toplevel | Split-Path -Leaf)
-    $worktreePath = "$HOME/.worktrees/$repoName-$Branch"
+    $worktreePath = "$HOME/worktrees/$repoName-$Branch"
 
     git worktree add -b $Branch $worktreePath
     Set-Location $worktreePath
