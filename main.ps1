@@ -1,4 +1,5 @@
 Import-Module PSReadline
+Import-Module ./modules/gwt.psm1
 $PSMainPath = $PSScriptRoot;
 # Set Intellisense grid selection
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
