@@ -12,18 +12,27 @@ function Get-GitWorktrees {
     foreach ($line in $output) {
         if ($line -like "worktree *") {
             if ($current.Path) {
+                # Name이 설정되지 않은 경우 폴더 이름 사용 (bare worktree 등)
+                if (-not $current.Name) {
+                    $current.Name = Split-Path $current.Path -Leaf
+                }
                 $list += [pscustomobject]$current
                 $current = @{}
             }
             $current.Path = $line.Substring(9)
-            $current.Name = Split-Path $current.Path -Leaf
         }
         elseif ($line -like "branch *") {
             $current.Branch = $line.Substring(7)
+            # 브랜치 이름을 Name으로 사용 (refs/heads/ 제거)
+            $current.Name = $current.Branch -replace '^refs/heads/', ''
         }
     }
 
     if ($current.Path) {
+        # Name이 설정되지 않은 경우 폴더 이름 사용
+        if (-not $current.Name) {
+            $current.Name = Split-Path $current.Path -Leaf
+        }
         $list += [pscustomobject]$current
     }
 
