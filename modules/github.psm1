@@ -3,14 +3,15 @@
     gh CLI를 활용하여 모든 organization의 repositories를 관리하고 코드 검색 기능을 제공합니다.
 #>
 
+using module ../packages/piper/modules/cache/Piper.Cache.psd1
+
 # ===========================
 # 1. 상수 및 설정
 # ===========================
 
-$CACHE_DIR = "$HOME/.cache/pwshdev"
-$CACHE_FILE = "$CACHE_DIR/github-repos.json"
-$CACHE_TTL = 3600 * 24 * 7
+$CACHE_TTL = 3600 * 24 * 7  # 7일
 $PARALLEL_LIMIT = 10
+$script:CacheInstance = [Cache]::new(@{CachePath = "$HOME/.cache/pwshdev"})
 
 # ===========================
 # 2. Helper 함수들
@@ -39,42 +40,23 @@ function Get-CachedRepos {
     .SYNOPSIS
     캐시에서 repository 목록을 읽어옵니다.
     .DESCRIPTION
-    캐시 파일이 존재하고 TTL이 유효한 경우 repos 배열을 반환합니다.
-    그렇지 않으면 $null을 반환합니다. (Piper.Cache 패턴)
+    Piper.Cache를 사용하여 캐시된 repos 배열을 반환합니다.
+    캐시가 없거나 만료되었으면 $null을 반환합니다.
     #>
 
-    # 캐시 파일 존재 확인
-    if (-not (Test-Path $CACHE_FILE)) {
-        return $null
+    $cached = $script:CacheInstance.Get('github-repos')
+
+    if ($null -eq $cached) {
+        Write-Host "캐시가 없거나 만료됨, 재수집합니다..." -ForegroundColor Gray
     }
 
-    try {
-        # JSON 파싱
-        $cache = Get-Content $CACHE_FILE -Raw | ConvertFrom-Json
-
-        # TTL 체크
-        if ($cache.expiresAt) {
-            $expiresAt = [DateTime]::Parse($cache.expiresAt)
-            if ([DateTime]::Now -gt $expiresAt) {
-                Write-Host "캐시 만료됨, 재수집합니다..." -ForegroundColor Gray
-                return $null
-            }
-        }
-
-        # repos 배열 반환
-        return $cache.data.repos
-    }
-    catch {
-        # JSON 파싱 실패나 기타 에러 시 조용히 $null 반환
-        Write-Host "캐시 파일 손상됨, 재수집합니다..." -ForegroundColor Gray
-        return $null
-    }
+    return $cached
 }
 
 function Set-CachedRepos {
     <#
     .SYNOPSIS
-    Repository 목록을 캐시 파일에 저장합니다.
+    Repository 목록을 캐시에 저장합니다.
     .PARAMETER Repos
     저장할 repository 배열
     #>
@@ -83,25 +65,8 @@ function Set-CachedRepos {
         [array]$Repos
     )
 
-    # 디렉토리 생성 (없으면)
-    $dir = Split-Path $CACHE_FILE -Parent
-    if (-not (Test-Path $dir)) {
-        New-Item -ItemType Directory -Path $dir -Force | Out-Null
-    }
-
-    # TTL 계산 (ISO 8601 형식)
-    $expiresAt = [DateTime]::Now.AddSeconds($CACHE_TTL).ToString("o")
-
-    # 캐시 객체 생성
-    $cache = @{
-        data = @{
-            repos = $Repos
-        }
-        expiresAt = $expiresAt
-    }
-
-    # JSON으로 저장
-    $cache | ConvertTo-Json -Depth 10 | Set-Content $CACHE_FILE -Encoding UTF8
+    # Piper.Cache를 사용하여 TTL과 함께 저장
+    $script:CacheInstance.Set('github-repos', $Repos, $CACHE_TTL)
 }
 
 function Get-AllRepositories {
@@ -509,13 +474,13 @@ Register-ArgumentCompleter -CommandName github -ParameterName Target -ScriptBloc
         return
     }
 
-    # 캐시에서 repos 로드 (TTL 무시 - completion은 stale data 허용)
+    # 캐시에서 repos 로드 (completion은 stale data 허용)
     try {
-        $cacheFile = "$HOME/.cache/pwshdev/github-repos.json"
-        if (Test-Path $cacheFile) {
-            $data = Get-Content $cacheFile -Raw | ConvertFrom-Json
-            $repos = $data.data.repos
+        # github 모듈이 이미 로드되어 있으므로 Cache 타입을 사용 가능
+        $cache = [Cache]::new(@{CachePath = "$HOME/.cache/pwshdev"})
+        $repos = $cache.Get('github-repos')
 
+        if ($repos) {
             $repos |
                 Where-Object { $_.fullName -like "$wordToComplete*" } |
                 ForEach-Object {
