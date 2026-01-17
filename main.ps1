@@ -26,14 +26,6 @@ if($IsLinux) {
     hwclock -s
 }
 
-function j { just $args }
-function p { pnpm $args }
-function py { python3 $args }
-function pt { poetry $args }
-function m8s { microk8s $args }
-function kb { kubectl $args }
-function kbc { kubectx $args }
-
 <#
   buildkit은 빌드 자체 성능을 높일 수 있지만, mac의 colima 체제 하에서는 error prone이므로 비활성화
 #>
@@ -63,3 +55,18 @@ if (Test-Path ~/.pwshrc.ps1) {
 Start-Job -ScriptBlock {
     & "$using:PSMainPath/systems/odd.ps1"
 } | Out-Null
+
+
+<##>
+
+function j { just $args }
+function p { pnpm $args }
+function py { python3 $args }
+function pt { poetry $args }
+function m8s { microk8s $args }
+function kb { kubectl $args }
+function kbc { kubectx $args }
+
+function !claude {
+  claude --dangerously-skip-permissions $args
+}
