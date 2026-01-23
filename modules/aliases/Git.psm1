@@ -417,14 +417,4 @@ function !gstash([string] $message) {
     }
 }
 
-function Invoke-Git-New-Worktree ([string]$Branch) {
-    $repoName = (git rev-parse --show-toplevel | Split-Path -Leaf)
-    $worktreePath = "$HOME/worktrees/$repoName-$Branch"
-
-    git worktree add -b $Branch $worktreePath
-    Set-Location $worktreePath
-}
-function gnw { Invoke-Git-New-Worktree $args }
-
-
 Export-ModuleMember -Function * -Alias *

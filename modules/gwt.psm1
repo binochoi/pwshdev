@@ -56,7 +56,7 @@ function Resolve-Worktree {
 function gwt {
     param(
         [Parameter(Position = 0)]
-        [ValidateSet("list", "cd", "run", "remove")]
+        [ValidateSet("list", "cd", "run", "remove", "new")]
         [string]$Command,
 
         [Parameter(Position = 1)]
@@ -94,8 +94,66 @@ function gwt {
         }
 
         "remove" {
-            $path = Resolve-Worktree $Target
-            git worktree remove $path
+            if ([string]::IsNullOrEmpty($Target)) {
+                Write-Error "패턴을 입력해주세요. 예: gwt remove list*"
+                return
+            }
+
+            $worktrees = Get-GitWorktrees
+            $matchedWorktrees = @()
+
+            if ($Target.Contains("*")) {
+                $escapePattern = [regex]::Escape($Target).Replace("\*", ".*")
+                $matchedWorktrees = $worktrees | Where-Object { $_.Name -match "^$escapePattern$" }
+            } else {
+                $matchedWorktrees = $worktrees | Where-Object { $_.Name -eq $Target }
+            }
+
+            if ($matchedWorktrees.Count -eq 0) {
+                Write-Host "삭제할 worktree가 없습니다."
+                return
+            }
+
+            $totalCount = $matchedWorktrees.Count
+            Write-Host "`n다음 worktree들이 삭제됩니다: (총 ${totalCount}개)" -ForegroundColor Yellow
+            foreach ($wt in $matchedWorktrees) {
+                Write-Host "  $($wt.Name) - $($wt.Path)" -ForegroundColor Red
+            }
+
+            $confirmation = Read-Host "`n정말로 이 worktree들을 삭제하시겠습니까? (y/N)"
+            if ($confirmation -ne "y") {
+                Write-Host "작업이 취소되었습니다." -ForegroundColor Green
+                return
+            }
+
+            $deletedCount = 0
+            foreach ($wt in $matchedWorktrees) {
+                git worktree remove $wt.Path
+                if ($?) {
+                    $deletedCount++
+                    $remainingCount = $totalCount - $deletedCount
+                    Write-Host "worktree가 삭제되었습니다: $($wt.Name)" -ForegroundColor Green
+                    Write-Host "(삭제됨: $deletedCount, 남음: $remainingCount)" -ForegroundColor Green
+                }
+            }
+
+            Write-Host "`n작업이 완료되었습니다. 총 ${deletedCount}개의 worktree가 삭제되었습니다." -ForegroundColor Cyan
+        }
+
+        "new" {
+            if ([string]::IsNullOrEmpty($Target)) {
+                Write-Error "브랜치 이름을 입력해주세요. 예: gwt new feature-branch"
+                return
+            }
+
+            $repoName = (git rev-parse --show-toplevel | Split-Path -Leaf)
+            $worktreePath = "$HOME/worktrees/$repoName-$Target"
+
+            git worktree add -b $Target $worktreePath
+            if ($?) {
+                Set-Location $worktreePath
+                Write-Host "새 worktree가 생성되었습니다: $worktreePath" -ForegroundColor Green
+            }
         }
     }
 }
