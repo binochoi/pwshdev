@@ -63,7 +63,9 @@ function gwt {
         [string]$Target,
 
         [Parameter(Position = 2, ValueFromRemainingArguments)]
-        [string[]]$Args
+        [string[]]$Args,
+
+        [switch]$Force
     )
 
     switch ($Command) {
@@ -128,7 +130,12 @@ function gwt {
 
             $deletedCount = 0
             foreach ($wt in $matchedWorktrees) {
-                git worktree remove $wt.Path
+                if ($Force) {
+                    git worktree remove --force $wt.Path
+                } else {
+                    git worktree remove $wt.Path
+                }
+
                 if ($?) {
                     $deletedCount++
                     $remainingCount = $totalCount - $deletedCount
