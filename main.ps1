@@ -60,7 +60,6 @@ Start-Job -ScriptBlock {
 <##>
 
 function j { just $args }
-function p { pnpm $args }
 function py { python3 $args }
 function pt { poetry $args }
 function m8s { microk8s $args }
