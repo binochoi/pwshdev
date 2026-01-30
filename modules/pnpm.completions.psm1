@@ -38,12 +38,13 @@ function p {
 # ---- TAB COMPLETION ----
 
 Register-ArgumentCompleter -CommandName p -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+    param($wordToComplete, $commandAst, $cursorPosition)
 
     # 명령어 AST에서 모든 요소 추출
     $commandElements = $commandAst.CommandElements
 
     # p run 뒤에 오는 경우에만 scripts 자동완성 제공
+    # 인덱스: [0]=p, [1]=run, [2]=script명
     if ($commandElements.Count -ge 2 -and $commandElements[1].Value -eq 'run') {
         Get-PackageJsonScripts |
             Where-Object { $_ -like "$wordToComplete*" } |

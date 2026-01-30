@@ -44,7 +44,7 @@ function Resolve-Worktree {
 
     $wt = Get-GitWorktrees | Where-Object {
         $_.Name -eq $Name
-    }
+    } | Select-Object -First 1
 
     if (-not $wt) {
         throw "worktree 없음: $Name"
