@@ -69,3 +69,5 @@ function kbc { kubectx $args }
 function !claude {
   claude --dangerously-skip-permissions $args
 }
+function !cc { !claude $args }
+function ca { !claude $args }
